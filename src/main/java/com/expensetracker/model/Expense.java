@@ -8,10 +8,10 @@ public class Expense {
     private double amount;
     private LocalDate date;
     private String description;
-    private String category;
+    private Category category;
 
     // Constructor
-    public Expense(double amount, LocalDate date, String description, String category) {
+    public Expense(double amount, LocalDate date, String description, Category category) {
         this.id = UUID.randomUUID();
         this.amount = amount;
         this.date = date;
@@ -48,11 +48,11 @@ public class Expense {
         this.description = description;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -63,7 +63,7 @@ public class Expense {
                 ", amount=" + amount +
                 ", date=" + date +
                 ", description='" + description + '\'' +
-                ", category='" + category + '\'' +
+                ", category='" + category.getName() + '\'' +
                 '}';
     }
 }
