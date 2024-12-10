@@ -1,148 +1,168 @@
-### README.md
+Here’s a comprehensive `README.md` file for your **Expense Tracker** application. It describes the project, its structure, and functionality.
+
+---
 
 # Expense Tracker Application
 
-This is a simple **Expense Tracker Application** written in Java. The application allows users to manage their expenses by adding, viewing, and saving them to a file. The project is structured to be extensible and follows good coding practices.
+## Overview
+The **Expense Tracker Application** is a console-based Java application that allows users to manage their expenses. Users can:
+- Add new expenses.
+- View all recorded expenses.
+- Export expenses to a file for storage.
+
+This application is built with a clean structure, including models, services, and utilities, and ensures robust input validation and error handling.
 
 ---
 
 ## Features
-
-- Add new expenses with details like amount, date, description, and category.
-- View all expenses.
-- Save expenses to a file for persistence.
+- **Add Expenses**: Input expense details such as amount, description, and category.
+- **View Expenses**: Display all recorded expenses with details like date and category.
+- **Export to File**: Save the list of expenses in a CSV file for external usage.
+- **Predefined Data**: Preloaded with sample categories and expenses.
+- **Error Handling**: Handles invalid inputs and file operation errors gracefully.
 
 ---
 
 ## Project Structure
+The project is organized into packages for modularity and clarity:
 
-The project is organized into packages to ensure clear separation of concerns:
-
-1. **`com.expensetracker.model`**
-   - Contains the data models used in the application, such as `Expense` and `Category`.
-2. **`com.expensetracker.service`**
-   - Handles the business logic and operations on the data.
-3. **`com.expensetracker.util`**
-   - Provides utility classes for saving and loading files.
-4. **`com.expensetracker`**
-   - Contains the main application class and the entry point.
-
----
-
-## Classes Overview
-
-### 1. `Expense` (Model)
-
-Represents an individual expense.
-
-- **Fields**:
-  - `UUID id`: Unique identifier for the expense.
-  - `double amount`: The monetary value of the expense.
-  - `LocalDate date`: The date of the expense.
-  - `String description`: Description or details of the expense.
-  - `Category category`: The category to which the expense belongs.
-
-- **Constructor**:
-  Initializes an expense with the specified amount, date, description, and category.
-
-- **Methods**:
-  - Getters and setters for fields.
-  - `toString()`: Returns a string representation of the expense.
+```
+com.expensetracker
+    ├── model
+    │   ├── Category.java       // Represents an expense category
+    │   └── Expense.java        // Represents an individual expense
+    ├── service
+    │   ├── ExpenseService.java // Interface for expense operations
+    │   └── ExpenseTracker.java // Main application logic
+    ├── util
+    │   ├── ExpenseStorage.java // Handles expense storage and file operations
+    │   └── ExpenseInitializer.java // Initializes the application with predefined data
+```
 
 ---
 
-### 2. `Category` (Model)
+## Classes and Their Responsibilities
 
-Represents a category to which an expense belongs.
+### 1. **Model Classes**
+- **`Category`**:
+  - Represents a category for expenses (e.g., "Food", "Transport").
+  - Fields:
+    - `String name`: Name of the category.
+    - `String description`: Description of the category.
+  - Methods:
+    - Getters and setters.
+    - `toString()`: Converts the category object to a readable string.
 
-- **Fields**:
-  - `String name`: Name of the category.
-  - `String description`: Description of the category.
-
-- **Constructor**:
-  Initializes a category with the specified name and description.
-
-- **Methods**:
-  - Getters and setters for fields.
-  - `toString()`: Returns a string representation of the category.
-
----
-
-### 3. `ExpenseStorage` (Service)
-
-Handles the management of expenses.
-
-- **Fields**:
-  - `List<Expense> expenses`: Stores all expenses in memory.
-
-- **Methods**:
-  - `addExpense(Expense expense)`: Adds a new expense to the list.
-  - `getExpenses()`: Returns the list of all expenses.
-  - `saveExpensesToFile(List<Expense> expenses)`: Saves expenses to a file named `expenses.txt` in the project directory.
-  - `loadExpensesFromFile()`: Loads expenses from the `expenses.txt` file.
+- **`Expense`**:
+  - Represents an individual expense.
+  - Fields:
+    - `UUID id`: Unique identifier for the expense.
+    - `double amount`: Amount spent.
+    - `LocalDate date`: Date of the expense.
+    - `String description`: Short description of the expense.
+    - `Category category`: Category of the expense.
+  - Methods:
+    - Getters and setters.
+    - Constructor to initialize an expense with all fields.
 
 ---
 
-### 4. `ExpenseTracker` (Main Application)
+### 2. **Service Classes**
+- **`ExpenseService`** (Interface):
+  - Defines core methods for managing expenses:
+    - `addExpense(String description, double amount, Category category)`: Add a new expense.
+    - `showExpenses()`: Display all expenses.
+    - `getAllExpenses()`: Retrieve a list of all expenses.
 
-Entry point for the application.
-
-- **Description**:
-  The main class allows the user to interact with the application through a console-based menu. Users can:
-  - Add expenses.
-  - View all expenses.
-  - Save expenses to a file.
-
-- **Structure**:
-  - A `Scanner` is used to read user input.
-  - The menu is displayed in a loop to allow continuous operations.
-
----
-
-### 5. `PredefinedData` (Utility)
-
-Provides predefined categories and expenses.
-
-- **Fields**:
-  - A static list of default categories and expenses.
-- **Methods**:
-  - `getDefaultCategories()`: Returns a list of predefined categories.
-  - `getDefaultExpenses()`: Returns a list of predefined expenses.
+- **`ExpenseTracker`** (Main Application):
+  - Provides the main menu and user interaction logic.
+  - Key Methods:
+    - **`addExpense()`**: Prompts the user to input expense details and adds it to storage.
+    - **`showExpenses()`**: Displays all recorded expenses.
+    - **`exportExpensesToFile()`**: Saves the list of expenses to a file.
+    - **`run()`**: Main menu loop to interact with the user.
+  - Includes robust input validation and error handling:
+    - Ensures amount is a positive number.
+    - Ensures non-empty input for strings (e.g., description, category).
+    - Handles invalid menu choices and unexpected errors.
 
 ---
 
-### How It Works
+### 3. **Utility Classes**
+- **`ExpenseStorage`**:
+  - Manages expense data in memory and handles file operations.
+  - Key Methods:
+    - `addExpense(Expense expense)`: Adds an expense to the list.
+    - `getAllExpenses()`: Returns the list of expenses.
+    - `saveExpensesToFile(String fileName)`: Writes the list of expenses to a file in CSV format.
+  - Handles file write errors gracefully.
 
-1. **Adding Expenses**:
-   - Users provide the amount, description, and category for a new expense.
-   - The expense is stored in memory.
+- **`ExpenseInitializer`**:
+  - Provides predefined categories and expenses for initial setup.
+  - Key Method:
+    - `initialize(ExpenseStorage storage)`: Adds predefined categories and expenses to the storage.
 
-2. **Viewing Expenses**:
-   - Displays all saved expenses along with their details.
+---
 
-3. **Saving Expenses**:
-   - Writes all expenses to a file (`expenses.txt`).
+## Validations and Error Handling
+- **Amount Validation**:
+  - Ensures the user enters a positive amount.
+  - Handles invalid number inputs (e.g., non-numeric values).
+- **String Validation**:
+  - Ensures non-empty input for descriptions and category names.
+- **File Operations**:
+  - Handles errors during file writing (e.g., invalid file paths).
+- **General Error Handling**:
+  - Catches unexpected runtime exceptions and provides user-friendly messages.
 
-4. **Loading Expenses**:
-   - Reads expenses from `expenses.txt` when the application starts.
+---
+
+## Example Usage
+
+### Menu Options:
+```
+Choose an option:
+1. Add expense
+2. Show all expenses
+3. Export expenses to file
+4. Exit
+```
+
+### Adding an Expense:
+```
+Enter amount: 100
+Enter description: Lunch
+Enter category (e.g., Food, Transport): Food
+Expense added successfully!
+```
+
+### Viewing Expenses:
+```
+Amount: 50.0, Date: 2024-12-10, Description: Lunch at a restaurant, Category: Food
+Amount: 30.0, Date: 2024-12-10, Description: Bus ticket, Category: Transport
+```
+
+### Exporting to File:
+```
+Enter file name to save expenses: expenses.csv
+Expenses have been saved to expenses.csv
+```
 
 ---
 
 ## File Storage
-
-- All expenses are saved to a file named `expenses.txt` in the project directory.
-- Example content:
+- Expenses are saved in CSV format with the following structure:
   ```
-  UUID: 123e4567-e89b-12d3-a456-426614174000, Amount: 50.0, Date: 2024-12-10, Description: Lunch, Category: Food
+  Amount,Date,Description,Category
+  50.0,2024-12-10,Lunch at a restaurant,Food
+  30.0,2024-12-10,Bus ticket,Transport
   ```
+- The file name is provided by the user during export.
 
 ---
 
 ## Future Enhancements
-
-- Add support for editing or deleting expenses.
-- Integrate a database for persistent storage.
-- Build a GUI or web interface for the application.
-
----
-
+- Add functionality to edit or delete expenses.
+- Implement a database for persistent storage.
+- Build a graphical user interface (GUI) or web application frontend.
+- Categorize expenses with subcategories (e.g., "Food -> Groceries").
