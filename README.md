@@ -146,4 +146,3 @@ Provides predefined categories and expenses.
 
 ---
 
-Feel free to extend or modify the application as needed! 😊
