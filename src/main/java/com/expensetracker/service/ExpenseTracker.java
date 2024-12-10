@@ -1,6 +1,6 @@
 package com.expensetracker.service;
 
-import com.expensetracker.model.Category;  // Add this import
+import com.expensetracker.model.Category;
 import com.expensetracker.model.Expense;
 import com.expensetracker.util.ExpenseStorage;
 import com.expensetracker.util.ExpenseInitializer;
@@ -44,13 +44,21 @@ public class ExpenseTracker {
         });
     }
 
+    // Method to export expenses to a file
+    public void exportExpensesToFile() {
+        System.out.print("Enter file name to save expenses: ");
+        String fileName = scanner.nextLine();
+        storage.saveExpensesToFile(fileName);
+    }
+
     // Run method to interact with user
     public void run() {
         while (true) {
             System.out.println("Choose an option:");
             System.out.println("1. Add expense");
             System.out.println("2. Show all expenses");
-            System.out.println("3. Exit");
+            System.out.println("3. Export expenses to file");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline
@@ -63,6 +71,9 @@ public class ExpenseTracker {
                     showExpenses();
                     break;
                 case 3:
+                    exportExpensesToFile();
+                    break;
+                case 4:
                     System.out.println("Exiting...");
                     return;
                 default:
