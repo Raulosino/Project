@@ -128,28 +128,6 @@ Provides predefined categories and expenses.
 
 ---
 
-## How to Run the Application
-
-1. **Clone the Repository**:
-   ```bash
-   git clone <repository-url>
-   cd expense-tracker
-   ```
-
-2. **Build the Project**:
-   Ensure you have Maven installed and run:
-   ```bash
-   mvn clean install
-   ```
-
-3. **Run the Application**:
-   Execute the `ExpenseTracker` main class:
-   ```bash
-   java -cp target/expense-tracker-1.0-SNAPSHOT.jar com.expensetracker.ExpenseTracker
-   ```
-
----
-
 ## File Storage
 
 - All expenses are saved to a file named `expenses.txt` in the project directory.
